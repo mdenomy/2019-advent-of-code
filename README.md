@@ -26,6 +26,8 @@ isnt(1,2, "Try out isn't assertion with fixed data, should pass");
 is(1,2, "Try out is assertion with fixed data, should fail");
 ```
 
+I had some trouble figuring out how to compare arrays in my tests, so I decided to switch to [Test::More](https://perldoc.perl.org/Test/More.html) because I knew it had `is_deeply` which I knew would compare the full contents of the arrays, and I was getting pretty frustrated. I am excited to learn more about Test2 and have a pairing session set up with a coworker to experiment with it. But I just want to get some $hit done.
+
 That seemed to boost my confidence, then I started in on the assignment. I immediately ran into trouble trying to assign values to a list, which you apparently can't do in perl, surprise, surprise. So I was having all kinds of trouble with [arrays and list context](https://perlmaven.com/scalar-and-list-context-in-perl) (I now know that's the right terminology). It was really useful to have the test framework in place, because it quickly exposed my misunderstand of how to handle arrays and lists, and when trying to reassign values in a list.
 
 So it was a frustrating day, but I learned a lot.
