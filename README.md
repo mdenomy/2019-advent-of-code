@@ -36,3 +36,16 @@ I decided to bail on part 2 cause it's Saturday, and I had enough fun for a sunn
 
 P.S. I also learned that if you use [require](https://perldoc.perl.org/functions/require.html) the required file must `return 1;`. Weird, right
 > The file must return true as the last statement to indicate successful execution of any initialization code, so it's customary to end such a file with 1; unless you're sure it'll return true otherwise. But it's better just to put the 1; , in case you add more statements.
+
+### Day 3
+Day 3 pointed out a few things to me
+
+1. I am not working incrementally enough. I started with a relatively simple test case, but the code to implement the simple case was too big of a swing. I got it done, but I'd love to see smaller increments
+2. I need to learn about OO Perl. I used a few global variables, or at least file scoped variables, I'm a little unclear on Perl's scoping, but it felt _dirty_ and I also found myself having to do some things with references to the globals that felt a bit hacky.
+
+I still am coming up to speed on the syntax, and still make mistakes with [sigils](https://www.perl.com/article/on-sigils/). I played around with references, which was still pretty confusing, especially how to dereference them (again, sigils come into play here).
+
+I was much happier with my test suite this go around.
+
+We'll see how far I get this week. Have to remember that I have _real work_ to do.
+
