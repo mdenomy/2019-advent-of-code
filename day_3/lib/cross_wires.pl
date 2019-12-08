@@ -9,6 +9,7 @@ my %current_point = (
 	"y" => 0
 );
 my $cur_locations_ref;
+my $step_count;
 
 sub find_min_crossing_distance {
 	my $wire1_path = shift;
@@ -16,6 +17,7 @@ sub find_min_crossing_distance {
 	undef %wire1_locations;
 	undef %wire2_locations;
 	undef %current_point;
+	$step_count = 0;
 
 	my @wire1_moves = (split(",", $wire1_path));
 	my @wire2_moves = (split(",", $wire2_path));
@@ -27,16 +29,20 @@ sub find_min_crossing_distance {
 	calculate_moves(@wire2_moves);
 
 	my $min_distance;
+	my $min_steps;
 	foreach (keys %wire1_locations) {
 		if (exists $wire2_locations{$_}) {
-			if (!$min_distance || $min_distance > $wire2_locations{$_}) {
-				$min_distance = $wire2_locations{$_}
+			if (!$min_distance || $min_distance > $wire2_locations{$_}{distance}) {
+				$min_distance = $wire2_locations{$_}{distance}
+			}
+			if (!$min_steps || $min_steps > $wire2_locations{$_}{steps} + $wire1_locations{$_}{steps}) {
+				$min_steps = $wire2_locations{$_}{steps} + $wire1_locations{$_}{steps};
 			}
 
-			print "match $_\n";
+			print "match $_ distance $wire2_locations{$_}{distance} steps $wire2_locations{$_}{steps} + $wire1_locations{$_}{steps}\n";
 		}
 	}
-	 return $min_distance;
+	 return ($min_distance, $min_steps);
 }
 
 sub reset_current_location {
@@ -50,6 +56,7 @@ sub reset_current_location {
 sub calculate_moves {
 	my @moves = @_;
 	reset_current_location();
+	$step_count = 0;
 	
 	foreach (@moves) {
 		(my $direction, my $distance) = parse_move($_);
@@ -103,8 +110,12 @@ sub move_down {
 }
 
 sub update_positions_visited {
+	$step_count++;
 	$cur_locations_ref->{(%current_point{"x"}, %current_point{"y"})} = 
-		abs($current_point{"x"}) + abs($current_point{"y"});
+		{ 
+			distance => abs($current_point{"x"}) + abs($current_point{"y"}),
+			steps => $step_count
+		};
 }
 
 1;
