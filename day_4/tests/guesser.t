@@ -9,10 +9,18 @@ require "guesser.pl";
 }
 
 {
-	ok( !is_possible(111112), "increasing digit" );
+	ok( is_possible(234556), "increasing digit, has double" );
 }
 
 {
-	ok( !is_possible(111112), "decreasing, but no double" );
+	ok( !is_possible(221111), "decreasing digit" );
+}
+
+{
+	ok( !is_possible(765432), "decreasing, and no double" );
+}
+
+{
+	ok( !is_possible(765442), "decreasing, has double" );
 }
 done_testing;
